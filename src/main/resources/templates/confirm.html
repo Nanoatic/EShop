@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:include="fragments/common ::css">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="all">
+    <div th:include="fragments/header :: header"></div>
+    <div id="content">
+        <div class="container">
+
+            <div class="col-md-12">
+
+                <ul class="breadcrumb">
+                    <li><a th:href="@{/home}">Home</a>
+                    </li>
+                    <li>Confirmation</li>
+                </ul>
+
+
+                <div class="row" id="error-page">
+                    <div class="col-sm-6 col-sm-offset-3">
+                        <div class="box">
+
+                            <p class="text-center">
+                                <img th:src="@{/img/logo.png}"} >
+                            </p>
+                            <div th:if="${errorMessage}" class="alert alert-danger"
+                                 role="alert" th:text=${errorMessage}></div>
+                            <div th:if="${successMessage}" class="alert alert-success"
+                                 role="alert" th:text=${successMessage}></div>
+                            <div th:if="${invalidToken}" class="alert alert-danger"
+                                 role="alert" th:text=${invalidToken}></div>
+
+
+                            <p class="buttons"><a th:href="@{/login}" class="btn btn-primary"><i class="fa fa-sign-in"></i> Go to Login</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- /.col-md-9 -->
+        </div>
+        <!-- /.container -->
+    </div>
+    <!-- /#content -->
+    <div th:include="fragments/footer :: footer"></div>
+</div>
+<div th:include="fragments/common ::scripts"></div>
+
+</body>
+</html>

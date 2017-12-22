@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:include="fragments/common :: css">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="all">
+    <div th:include="fragments/header :: header"></div>
+    <div id="content">
+        <div class="container">
+
+            <div class="col-md-12">
+
+                <ul class="breadcrumb">
+                    <li><a th:href="@{/home}">Home</a>
+                    </li>
+                    <li>My account</li>
+                </ul>
+
+            </div>
+
+            <div class="col-md-3">
+                <!-- *** CUSTOMER MENU ***
+_________________________________________________________ -->
+                <div class="panel panel-default sidebar-menu">
+
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Customer section</h3>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <ul class="nav nav-pills nav-stacked">
+                            <li>
+                                <a th:href="@{/customer-orders}"><i class="fa fa-list"></i> My orders</a>
+                            </li>
+                            <li class="active">
+                                <a th:href="@{/customer-account}"><i class="fa fa-user"></i> My account</a>
+                            </li>
+                            <li>
+                                <a th:href="@{/logout}"><i class="fa fa-sign-out"></i> Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+                <!-- /.col-md-3 -->
+
+                <!-- *** CUSTOMER MENU END *** -->
+            </div>
+
+            <div class="col-md-9">
+                <div class="box">
+                    <h1>My account</h1>
+                    <p class="lead">Change your personal details or your password here.</p>
+
+
+                    <h3>Change password</h3>
+
+                    <form th:action="@{/customer-account}" id="passForm" method="post">
+                        <div th:if="${perrorMessage}"
+                             class="alert alert-danger" role="alert"
+                             th:text="${perrorMessage}"></div>
+                        <div th:if="${psuccessMessage}"
+                             class="alert alert-success" role="alert"
+                             th:text="${psuccessMessage}"></div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group ">
+                                    <label for="oldpassword">Old password</label>
+                                    <input type="password" class="form-control" name="oldpassword" id="oldpassword">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group input-group has-feedback">
+                                    <label for="newpassword">New password</label>
+                                    <input type="password" name="newpassword" class="form-control" id="newpassword">
+
+                                </div>
+                                <div class="progress">
+                                    <div id="rstrengthBar"></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group input-group has-feedback">
+                                    <label for="repeatnewpassword">Retype new password</label>
+                                    <input type="password" name="repeatnewpassword" class="form-control" id="repeatnewpassword" data-fv-notempty="true"
+                                           data-fv-notempty-message="Please confirm password"
+                                           data-fv-identical="true"
+                                           data-fv-identical-field="newpassword"
+                                           data-fv-identical-message="Both passwords must be identical"/>
+
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.row -->
+
+                        <div class="col-sm-12 text-center">
+                            <button  value="value" name="savepassword" type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save new password
+                            </button>
+                        </div>
+                    </form>
+
+                    <hr>
+
+                    <h3>Personal details</h3>
+                    <form th:action="@{/customer-account}" method="post">
+                        <!--/*@thymesVar id="user" type="nano.project.eshop.models.User"*/-->
+                        <div th:if="${successMessage}"
+                             class="alert alert-success" role="alert"
+                             th:text="${successMessage}"></div>
+                        <div th:if="${warningMessage}"
+                             class="alert alert-warning" role="alert"
+                             th:text="${warningMessage}"></div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="firstname">Firstname</label>
+                                    <input type="text" class="form-control" id="firstname" name="firstname"
+                                           th:value="${user?.getFirstName()}">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="lastname">Lastname</label>
+                                    <input type="text" class="form-control" id="lastname" name="lastname"
+                                           th:value="${user?.getLastName()}">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.row -->
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="street">Street</label>
+                                    <input type="text" class="form-control" name="street" id="street" th:value="${user?.getAddress()?.getStreet()}" />
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 col-md-3">
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <input type="text" class="form-control" name="city" id="city"  th:value="${user?.getAddress()?.getCity()}"/>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-3">
+                                <div class="form-group">
+                                    <label for="country">Country</label>
+                                    <input type="text" class="form-control" name="country" id="country" th:value="${user?.getAddress()?.getCountry()}"/>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- /.row -->
+
+                        <div class="row">
+                            <div class="col-sm-6 col-md-3">
+                                <div class="form-group">
+                                    <label for="zip">ZIP</label>
+                                    <input type="text" class="form-control" name="zip" id="zip"  th:value="${user?.getAddress()?.getZip_code()} "/>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-3">
+                                <div class="form-group">
+                                    <label for="datetimepicker1">Birth Date</label>
+                                    <div class='input-group date' id='datetimepicker1'>
+                                        <input type='date' class="form-control" name="bdate"  th:value="${user.getBdate()!=null}? ${T(nano.project.eshop.Helpers).dateFormater(user.getBdate(),'yyyy-MM-dd')}  "/>
+                                        <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 text-center">
+                                <button  value="value" name="savechanges" type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save changes
+                                </button>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div th:include="fragments/footer :: footer"></div>
+</div>
+<div th:include="fragments/common ::scripts"></div>
+
+</body>
+</html>

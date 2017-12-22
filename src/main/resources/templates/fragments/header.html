@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<div th:fragment="header">
+    <!-- *** TOPBAR ***
+_________________________________________________________ -->
+    <div id="top">
+        <div class="container">
+            <div class="col-md-6 offer" data-animate="fadeInDown">
+            </div>
+            <div class="col-md-6" data-animate="fadeInDown">
+                <ul class="menu">
+                    <li  th:if="!${#httpServletRequest.getSession().getAttribute('name')}"><a th:href="@{/login}">Login</a>
+                    </li>
+                    <li  th:if="!${#httpServletRequest.getSession().getAttribute('name')}"><a th:href="@{/register}">Register</a>
+                    </li>
+                    <li  th:if="${#httpServletRequest.getSession().getAttribute('name')}" th:inline="text" style="color: #FFFFFF;">Welcome [[${#httpServletRequest.getSession().getAttribute('fname')}]]
+                    </li>
+                    <li  th:if="${#httpServletRequest.getSession().getAttribute('name')}"><a th:href="@{/customer-account}">Profile</a>
+                    </li>
+                    <li  th:if="${#httpServletRequest.getSession().getAttribute('name')}"><a th:href="@{/logout}">Logout</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- *** TOP BAR END *** -->
+
+    <!-- *** NAVBAR ***
+ _________________________________________________________ -->
+
+    <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+        <div class="container">
+            <div class="navbar-header">
+
+                <a class="navbar-brand home" th:href="@{/home}" data-animate-hover="bounce">
+                    <img th:src="@{/img/logo.png}" alt="logo" class="hidden-xs"/>
+                    <img th:src="@{/img/logo-small.png}" alt="logo" class="visible-xs"/><span class="sr-only">GameReck - go to homepage</span>
+                </a>
+                <div class="navbar-buttons">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation">
+                        <span class="sr-only">Toggle navigation</span>
+                        <i class="fa fa-align-justify"></i>
+                    </button>
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#search">
+                        <span class="sr-only">Toggle search</span>
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            <!--/.navbar-header -->
+
+            <div class="navbar-collapse collapse" id="navigation">
+
+                <ul class="nav navbar-nav navbar-left">
+                    <li class="dropdown-toggle yamm-fw"><a  class="dropdown-toggle" data-hover="dropdown" th:href="@{/home}">Home </b></a>
+                    </li>
+                    <li class="dropdown yamm-fw ">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">Products <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <div class="yamm-content">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h5>Computers</h5>
+                                            <ul>
+                                                <li><a th:href="@{/category(category='Desktop')}">Desktops</a>
+                                                </li>
+                                                <li><a th:href="@{/category(category='Laptop')}">Laptops</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <h5>Components</h5>
+                                            <ul>
+                                                <li><a th:href="@{/category(category='Motherboard')}">Motherboards</a>
+                                                </li>
+                                                <li><a th:href="@{/category(category='Storage')}">Storage</a>
+                                                </li>
+                                                <li><a th:href="@{/category(category='GCard')}">Graphic Cards</a>
+                                                </li>
+                                                <li><a th:href="@{/category(category='Case')}">Cases</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <h5>Accessories</h5>
+                                            <ul>
+                                                <li><a th:href="@{/category(category='Mouse')}">Mouses</a>
+                                                </li>
+                                                <li><a th:href="@{/category(category='Keyboard')}">Keyboards</a>
+                                                </li>
+                                                <li><a th:href="@{/category(category='Headphones')}">Headphones</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <h5>Miscellaneous</h5>
+                                            <ul>
+                                                <li><a th:href="@{/category(category='Console')}">Consoles</a>
+                                                </li>
+                                                <li><a th:href="@{/category(category='VideoGame')}">Video Games</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.yamm-content -->
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-toggle yamm-fw"><a  class="dropdown-toggle" data-hover="dropdown" th:href="@{/contactus}">Contact Us</b></a>
+                    </li>
+                </ul>
+
+            </div>
+            <!--/.nav-collapse -->
+
+            <div class="navbar-buttons">
+
+                <div class="navbar-collapse collapse right" id="basket-overview">
+                    <a th:href="@{/basket}" class="btn btn-primary navbar-btn"><i class="fa fa-shopping-cart"></i><span class="hidden-sm"><span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)</span></a>
+                </div>
+                <!--/.nav-collapse -->
+
+                <div class="navbar-collapse collapse right" id="search-not-mobile">
+                    <button type="button" class="btn navbar-btn btn-primary" data-toggle="collapse" data-target="#search">
+                        <span class="sr-only">Toggle search</span>
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+
+            </div>
+
+            <div class="collapse clearfix" id="search">
+
+                <form method="get" th:action="@{/category}" class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="searchname" placeholder="Search"/>
+                        <span class="input-group-btn">
+
+			<button type="submit" value="value" name="searchsubmit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+
+		    </span>
+                    </div>
+                </form>
+
+            </div>
+            <!--/.nav-collapse -->
+
+        </div>
+        <!-- /.container -->
+    </div>
+    <!-- /#navbar -->
+
+    <!-- *** NAVBAR END *** -->
+
+</div>
+
+</body>
+</html>

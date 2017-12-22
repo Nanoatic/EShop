@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:include="fragments/common ::css">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="all">
+    <div id="content">
+        <div class="container">
+
+            <div class="col-md-12">
+
+
+
+                <div class="row" id="error-page">
+                    <div class="col-sm-6 col-sm-offset-3">
+                        <div class="box">
+
+                            <p class="text-center">
+                                <img th:src="@{/img/logo.png}"} >
+                            </p>
+
+                            <h3>We are sorry - this page is not here anymore</h3>
+                            <h4 class="text-muted" >Error 404 - Page not found</h4>
+                            <b th:text="${error}"></b>
+
+                            <p class="text-center">To continue please use the <strong>Search form</strong> or <strong>Menu</strong> above.</p>
+
+                            <p class="buttons"><a th:href="@{/home}" class="btn btn-primary"><i class="fa fa-home"></i> Go to Homepage</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- /.col-md-9 -->
+        </div>
+        <!-- /.container -->
+    </div>
+    <!-- /#content -->
+</div>
+<div th:include="fragments/common ::scripts"></div>
+
+</body>
+</html>

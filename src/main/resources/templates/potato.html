@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<th:block th:each="potato : ${potatoes}"> <span th:text="${potato}"></span> </th:block>
+
+<h1>Hello Potato</h1>
+<p>
+    not today
+</p>
+</body>
+</html>
