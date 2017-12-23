@@ -14,6 +14,7 @@ public class Product {
     @Column(name = "qte")
     private int qte;
 
+<<<<<<< HEAD
     @Column(name = "category")
     private String category;
 
@@ -22,6 +23,16 @@ public class Product {
 
     @Column(name = "name")
     private String name;
+=======
+    @Column(name = "categorie")
+    private String categorie;
+
+    @Column(name = "prix")
+    private float prix;
+
+    @Column(name = "libel")
+    private String libel;
+>>>>>>> origin/master
 
     public String getPhoto() {
         return photo;
@@ -50,6 +61,7 @@ public class Product {
         this.qte = qte;
     }
 
+<<<<<<< HEAD
     public String getCategory() {
         return category;
     }
@@ -74,3 +86,29 @@ public class Product {
         this.name = name;
     }
 }
+=======
+    public String getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(String categorie) {
+        this.categorie = categorie;
+    }
+
+    public float getPrix() {
+        return prix;
+    }
+
+    public void setPrix(float prix) {
+        this.prix = prix;
+    }
+
+    public String getLibel() {
+        return libel;
+    }
+
+    public void setLibel(String libel) {
+        this.libel = libel;
+    }
+}
+>>>>>>> origin/master
