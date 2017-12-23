@@ -40,6 +40,17 @@ public class User {
 	@Column(name = "birth_date")
 	private Date bdate ;
 
+	@Column(name = "user_role")
+	private String role;
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	@Embedded
 	private Address address ;
 

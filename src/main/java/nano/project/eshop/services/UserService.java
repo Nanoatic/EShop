@@ -31,5 +31,8 @@ public class UserService {
 	public List<User> findFirst10(){
     	return  userRepository.findTop10ByOrderByIdDesc();
 	}
+	public List<User> findAllUsers(){
+    	return  (List<User>) userRepository.findAll();
+	}
 
 }
