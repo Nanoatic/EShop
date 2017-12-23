@@ -12,8 +12,7 @@ public class User {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
-	private int id;
+	private Long id;
 	
 	@Column(name = "email", nullable = false, unique = true)
 	@Email(message = "Please provide a valid e-mail")
@@ -32,7 +31,7 @@ public class User {
 	private String lastName;
 	
 	@Column(name = "enabled")
-	private boolean enabled;
+	private Boolean enabled;
 	
 	@Column(name = "confirmation_token")
 	private String confirmationToken;
@@ -78,11 +77,11 @@ public class User {
 		this.confirmationToken = confirmationToken;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

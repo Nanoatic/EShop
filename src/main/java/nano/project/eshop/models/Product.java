@@ -3,22 +3,20 @@ package nano.project.eshop.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "produit")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private long id;
+    private Long id;
 
     @Column(name = "quantity")
-    private int quantity;
+    private Integer quantity;
 
     @Column(name = "category")
     private String category;
 
     @Column(name = "price")
-    private float price;
+    private Float price;
 
     @Column(name = "name")
     private String name;
@@ -39,7 +37,7 @@ public class Product {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -59,11 +57,11 @@ public class Product {
         this.category = category;
     }
 
-    public float getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 
