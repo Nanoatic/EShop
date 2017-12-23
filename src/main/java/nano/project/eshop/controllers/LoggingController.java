@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -18,7 +19,6 @@ public class LoggingController {
 
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     private UserService userService;
-
     @Autowired
     public LoggingController(BCryptPasswordEncoder bCryptPasswordEncoder, UserService userService) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
