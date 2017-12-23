@@ -228,6 +228,11 @@ function initialize() {
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
+
+simpleCart.bind("afterCreate", function(){
+    $cart_table = $(".simpleCart_items table")
+    $cart_table.addClass("table")
+});
 simpleCart.currency({
     code: "TND" ,
     name: "Tunisian Dinar" ,
@@ -242,10 +247,33 @@ simpleCart({
         type: "PayPal" ,
         email: "nanoaticorgix@hotmail.com"
     } ,
-    currency: 	"TND"
+    currency: 	"TND",
+
+    cartStyle : "table",
+    cartColumns: [
+
+        /* Picture (same for every product right now) */
+        { view: function( item, column) {
+                return " <img src=\"img/detailsquare.jpg\" alt=\"White Blouse Armani\"> ";
+            }, label: "Product" },
+        /* Name */
+        { attr: "name", label: false },
+
+
+        /* Quantity */
+         {attr:'quantity', label: "Quantity" } ,
+        { view: "decrement" , label: false , text: "<i class=\"fa fa-minus\"></i>" } ,
+        { view: "increment" , label: false , text: "<i class=\"fa fa-plus\"></i>" } ,
+
+        /* Price */
+        { attr: "price" , label: "Unit price", view: 'currency' } ,
+        /* Total */
+        { attr: "total" , label: "Total", view: 'currency' } ,
+        /* Remove */
+        { view:  'remove'
+            , text: "Remove" , label: false , text : '<i class="fa fa-trash-o"></i>'}
+    ]
 
 });
-simpleCart.bind("afterCreate", function(){
-    $cart_table = $(".simpleCart_items table")
-    $cart_table.addClass("table").addClass("table-responsive")
-});
+simpleCart.add({name:'baby lion', price: 34.95});
+
