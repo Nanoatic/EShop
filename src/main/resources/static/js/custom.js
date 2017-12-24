@@ -254,8 +254,8 @@ simpleCart({
 
         /* Picture (same for every product right now) */
         { view: function( item, column) {
-                return " <img src=\"img/detailsquare.jpg\" alt=\"White Blouse Armani\"> ";
-            }, label: "Product" },
+                return " <img src='"+ item.get("thumb")+"' alt=\"notfound\"> ";
+            }, label: "Product" ,attr : "thumb" },
         /* Name */
         { attr: "name", label: false },
 
@@ -275,5 +275,4 @@ simpleCart({
     ]
 
 });
-simpleCart.add({name:'baby lion', price: 34.95});
 

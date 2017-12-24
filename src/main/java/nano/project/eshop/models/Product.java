@@ -1,7 +1,10 @@
 package nano.project.eshop.models;
 
-import javax.persistence.*;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 
+import javax.persistence.*;
+@Indexed
 @Entity
 public class Product {
 
@@ -18,9 +21,19 @@ public class Product {
     @Column(name = "price")
     private Float price;
 
+    @Field
     @Column(name = "name")
     private String name;
 
+    private String details;
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
 
     public String getPhoto() {
         return photo;

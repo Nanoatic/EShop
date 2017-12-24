@@ -34,6 +34,8 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-mail')
 	compile('net.sourceforge.nekohtml:nekohtml')
+	compile('org.hibernate:hibernate-search-engine:5.6.1.Final')
+	compile('org.hibernate:hibernate-search-orm:5.6.1.Final')
 	compile('com.nulab-inc:zxcvbn:1.2.3')
 	runtime('org.springframework.boot:spring-boot-devtools')
 	runtime('org.springframework.boot:spring-boot-actuator')

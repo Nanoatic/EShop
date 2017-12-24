@@ -75,8 +75,11 @@ public class LoggingController {
                 return modelAndView;
 
             }
+            //Set Session attribs on login
             request.getSession().setAttribute("name", user.getEmail());
             request.getSession().setAttribute("fname",user.getFirstName());
+            request.getSession().setAttribute("role",user.getRole());
+
             modelAndView.setViewName("redirect:/customer-account");
             return modelAndView;
         }

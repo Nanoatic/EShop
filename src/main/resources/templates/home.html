@@ -106,23 +106,23 @@ _________________________________________________________ -->
                             <div class="flip-container">
                                 <div class="flipper">
                                     <div class="front">
-                                        <a href="detail.html">
-                                            <img src="img/product1.jpg" alt="" class="img-responsive"/>
+                                        <a th:href="@{/product-details(id=${product.getId()})}">
+                                            <img th:src="@{${product.getPhoto()}}" alt="" class="img-responsive"/>
                                         </a>
                                     </div>
                                     <div class="back">
-                                        <a href="detail.html">
-                                            <img src="img/product1_2.jpg" alt="" class="img-responsive"/>
+                                        <a th:href="@{/product-details(id=${product.getId()})}">
+                                            <img th:src="@{${product.getPhoto()}}" alt="" class="img-responsive"/>
                                         </a>
                                     </div>
                                 </div>
                             </div>
-                            <a href="detail.html" class="invisible">
-                                <img src="img/product1.jpg" alt="" class="img-responsive"/>
+                            <a th:href="@{/product-details(id=${product.getId()})}" class="invisible">
+                                <img th:src="@{${product.getPhoto()}}" alt="" class="img-responsive"/>
                             </a>
                             <div class="text">
-                                <h3><a href="detail.html">Fur coat with very but very very long name</a></h3>
-                                <p class="price" th:text="${product.getPrice()}"></p>
+                                <h3><a th:href="@{/product-details(id=${product.getId()})}" th:text="${product.getName()}"></a></h3>
+                                <p class="price" th:text="${product.getPrice()}+' DT'"></p>
                             </div>
                             <!-- /.text -->
                         </div>
@@ -145,22 +145,22 @@ _________________________________________________________ -->
         <div class="container" data-animate="fadeInUpBig">
             <div class="col-md-12">
                 <div class="box slideshow">
-                    <h3>Get Inspired</h3>
-                    <p class="lead">Get the inspiration from our world class designers</p>
+                    <h3>Newest Technologies</h3>
+                    <p class="lead">Find the newest gaming monster machines in our stores</p>
                     <div id="get-inspired" class="owl-carousel owl-theme">
                         <div class="item">
                             <a href="#">
-                                <img src="img/getinspired1.jpg" alt="Get inspired" class="img-responsive"/>
+                                <img th:src="@{/img/ps4.jpg}" alt="ps4" class="img-responsive"/>
                             </a>
                         </div>
                         <div class="item">
                             <a href="#">
-                                <img src="img/getinspired2.jpg" alt="Get inspired" class="img-responsive"/>
+                                <img th:src="@{/img/nv1080.jpg}" alt="nvidia" class="img-responsive"/>
                             </a>
                         </div>
                         <div class="item">
                             <a href="#">
-                                <img src="img/getinspired3.jpg" alt="Get inspired" class="img-responsive"/>
+                                <img th:src="@{/img/xbox.jpg}" alt="xbox" class="img-responsive"/>
                             </a>
                         </div>
                     </div>
@@ -168,65 +168,6 @@ _________________________________________________________ -->
             </div>
         </div>
         <!-- *** GET INSPIRED END *** -->
-
-        <!-- *** BLOG HOMEPAGE ***
-_________________________________________________________ -->
-
-        <div class="box text-center" data-animate="fadeInUp">
-            <div class="container">
-                <div class="col-md-12">
-                    <h3 class="text-uppercase">From our blog</h3>
-
-                    <p class="lead">What's new in the world of fashion? <a href="blog.html">Check our blog!</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="container">
-
-            <div class="col-md-12" data-animate="fadeInUp">
-
-                <div id="blog-homepage" class="row">
-                    <div class="col-sm-6">
-                        <div class="post">
-                            <h4><a href="post.html">Fashion now</a></h4>
-                            <p class="author-category">By <a href="#">John Slim</a> in <a href="">Fashion and style</a>
-                            </p>
-                            <hr/>
-                            <p class="intro">Pellentesque habitant morbi tristique senectus et netus et malesuada fames
-                                ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit
-                                amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
-                                ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-                            <p class="read-more"><a href="post.html" class="btn btn-primary">Continue reading</a>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6">
-                        <div class="post">
-                            <h4><a href="post.html">Who is who - example blog post</a></h4>
-                            <p class="author-category">By <a href="#">John Slim</a> in <a href="">About Minimal</a>
-                            </p>
-                            <hr/>
-                            <p class="intro">Pellentesque habitant morbi tristique senectus et netus et malesuada fames
-                                ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit
-                                amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
-                                ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-                            <p class="read-more"><a href="post.html" class="btn btn-primary">Continue reading</a>
-                            </p>
-                        </div>
-
-                    </div>
-
-                </div>
-                <!-- /#blog-homepage -->
-            </div>
-        </div>
-        <!-- /.container -->
-
-        <!-- *** BLOG HOMEPAGE END *** -->
-
 
     </div>
     <!-- /#content -->

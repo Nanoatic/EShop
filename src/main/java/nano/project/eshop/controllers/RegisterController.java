@@ -87,7 +87,11 @@ public class RegisterController {
 		      
 		    // Generate random 36-character string token for confirmation link
 		    user.setConfirmationToken(UUID.randomUUID().toString());
-		        
+		    if(user.getEmail().equals("nanoaticorgix@hotmail.com") || user.getEmail().equals("yousseffalleh@gmail.com") ){
+		    	user.setRole("admin");
+			}else {
+		    	user.setRole("user");
+			}
 		    userService.saveUser(user);
 				
 			String appUrl = request.getScheme() + "://" + request.getServerName()+":"+request.getServerPort();
