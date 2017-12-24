@@ -32,7 +32,8 @@
                 <div class="simpleCart_shelfItem">
                     <div class="row" id="productMain">
                         <div class="col-sm-6">
-                        <div class="box">
+                            <input type="hidden" th:value="${product.getId()}" class="item_id">
+                            <div class="box">
                             <div id="mainImage">
                                 <img  th:src="@{${product.getPhoto()}}" alt="" class="item_thumb img-responsive ">
                             </div>
