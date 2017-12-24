@@ -16,7 +16,7 @@
                 <ul class="breadcrumb">
                     <li><a th:href="@{/home}">Home</a>
                     </li>
-                    <li><a th:href="@{/category(category=${product.getCategory()})}" th:text="${product.getCategory()}">False Category</a>
+                    <li><a th:href="@{/category(category=${product.getCategory()})}" th:text="${product.getCategory()+'s'}" >False Category</a>
                     </li>
                     <li th:text="${product.getName()}"></li>
                 </ul>
@@ -28,6 +28,7 @@
             </div>
 
             <div class="col-md-8">
+
                 <div class="simpleCart_shelfItem">
                     <div class="row" id="productMain">
                         <div class="col-sm-6">
@@ -36,10 +37,10 @@
                                 <img  th:src="@{${product.getPhoto()}}" alt="" class="item_thumb img-responsive ">
                             </div>
                         </div>
-                        </div>
-                        <div class="col-sm-6">
+                            </div>
+                            <div class="col-sm-6">
 
-                            <div class="box">
+                                <div class="box">
                                 <input type="hidden" value="1" class="item_quantity">
                                 <h1 class="text-center item_name" th:text="${product.getName()}"></h1>
                                 <label for="detail"><strong>Details:</strong></label>

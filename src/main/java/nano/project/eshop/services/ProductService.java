@@ -5,6 +5,8 @@ import nano.project.eshop.models.Product;
 import nano.project.eshop.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +26,9 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-
+    public Page<Product> findByCategory(String category , Pageable pageable){
+        return  productRepository.findByCategory(category,pageable);
+    }
 
     public Product findById(Long id) {
         return productRepository.findOne(id);
@@ -47,7 +51,9 @@ public class ProductService {
         return productRepository.count();
     }
 
-
+    public Long countByCategory(String category){
+        return  productRepository.countByCategory(category);
+    }
 
     public void delete(long id) {
         productRepository.delete(id);

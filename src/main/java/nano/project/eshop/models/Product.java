@@ -1,10 +1,13 @@
 package nano.project.eshop.models;
 
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Indexed;
+import org.apache.solr.client.solrj.beans.Field;
+import org.springframework.data.solr.core.mapping.Indexed;
+import org.springframework.data.solr.core.mapping.SolrDocument;
 
 import javax.persistence.*;
-@Indexed
+
+@org.hibernate.search.annotations.Indexed
+@SolrDocument(solrCoreName = "product")
 @Entity
 public class Product {
 
@@ -21,7 +24,9 @@ public class Product {
     @Column(name = "price")
     private Float price;
 
+    @org.hibernate.search.annotations.Field
     @Field
+    @Indexed(name = "name", type = "string")
     @Column(name = "name")
     private String name;
 

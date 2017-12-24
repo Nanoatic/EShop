@@ -69,39 +69,41 @@ _________________________________________________________ -->
                     <li class="dropdown yamm-fw ">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">Products <b class="caret"></b></a>
                         <ul class="dropdown-menu">
+                            <!--/*@thymesVar id="Category" type="nano.project.eshop.models.Category"*/-->
                             <li>
                                 <div class="yamm-content">
                                     <div class="row">
                                         <div class="col-sm-3">
                                             <h5>Computers</h5>
                                             <ul>
-                                                <li><a th:href="@{/category(category='Desktop')}">Desktops</a>
+                                                <li>
+                                                <a th:href="@{/category(category=${T(nano.project.eshop.models.Category).DESKTOP})}">Desktops</a>
                                                 </li>
-                                                <li><a th:href="@{/category(category='Laptop')}">Laptops</a>
+                                                <li><a th:href="@{/category(category=${T(nano.project.eshop.models.Category).LAPTOP})}">Laptops</a>
                                                 </li>
                                             </ul>
                                         </div>
                                         <div class="col-sm-3">
                                             <h5>Components</h5>
                                             <ul>
-                                                <li><a th:href="@{/category(category='Motherboard')}">Motherboards</a>
+                                                <li><a th:href="@{/category(category=${T(nano.project.eshop.models.Category).MOTHERBOARD})}">Motherboards</a>
                                                 </li>
-                                                <li><a th:href="@{/category(category='Storage')}">Storage</a>
+                                                <li><a th:href="@{/category(category=${T(nano.project.eshop.models.Category).STORAGE})}">Storage</a>
                                                 </li>
-                                                <li><a th:href="@{/category(category='GCard')}">Graphic Cards</a>
+                                                <li><a th:href="@{/category(category=${T(nano.project.eshop.models.Category).GRAPHICCARDS})}">Graphic Cards</a>
                                                 </li>
-                                                <li><a th:href="@{/category(category='Case')}">Cases</a>
+                                                <li><a th:href="@{/category(category=${T(nano.project.eshop.models.Category).CASE})}">Cases</a>
                                                 </li>
                                             </ul>
                                         </div>
                                         <div class="col-sm-3">
                                             <h5>Accessories</h5>
                                             <ul>
-                                                <li><a th:href="@{/category(category='Mouse')}">Mouses</a>
+                                                <li><a th:href="@{/category(category=${T(nano.project.eshop.models.Category).MOUSE})}">Mouses</a>
                                                 </li>
-                                                <li><a th:href="@{/category(category='Keyboard')}">Keyboards</a>
+                                                <li><a th:href="@{/category(category=${T(nano.project.eshop.models.Category).KEYBOARD})}">Keyboards</a>
                                                 </li>
-                                                <li><a th:href="@{/category(category='Headphones')}">Headphones</a>
+                                                <li><a th:href="@{/category(category=${T(nano.project.eshop.models.Category).HEADPHONE})}">Headphones</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -109,9 +111,9 @@ _________________________________________________________ -->
                                         <div class="col-sm-3">
                                             <h5>Miscellaneous</h5>
                                             <ul>
-                                                <li><a th:href="@{/category(category='Console')}">Consoles</a>
+                                                <li><a th:href="@{/category(category=${T(nano.project.eshop.models.Category).CONSOLE})}">Consoles</a>
                                                 </li>
-                                                <li><a th:href="@{/category(category='VideoGame')}">Video Games</a>
+                                                <li><a th:href="@{/category(category=${T(nano.project.eshop.models.Category).VIDEOGAME})}">Video Games</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -148,7 +150,7 @@ _________________________________________________________ -->
 
                 <form method="get" th:action="@{/category}" class="navbar-form" role="search">
                     <div class="input-group">
-                        <input type="text" class="form-control" name="searchname" placeholder="Search"/>
+                        <input type="text" class="form-control" name="searchname" placeholder="Search powered by Solr"/>
                         <span class="input-group-btn">
 
 			<button type="submit" value="value" name="searchsubmit" class="btn btn-primary"><i class="fa fa-search"></i></button>

@@ -14,6 +14,7 @@ public class Order {
     @Temporal(TemporalType.TIMESTAMP )
     private Date order_date;
 
+    private String status;
     @OneToMany(fetch=FetchType.EAGER)
     @JoinColumn(name = "order_fk")
     private List<OrderLine> orderLines;
