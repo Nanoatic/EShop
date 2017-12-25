@@ -118,6 +118,10 @@ _________________________________________________________ -->
                         <div th:if="${warningMessage}"
                              class="alert alert-warning" role="alert"
                              th:text="${warningMessage}"></div>
+
+                        <div th:if="${errorMessage}"
+                             class="alert alert-danger" role="alert"
+                             th:text="${errorMessage}"></div>
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">

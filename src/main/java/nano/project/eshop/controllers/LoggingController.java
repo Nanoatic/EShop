@@ -37,7 +37,10 @@ public class LoggingController {
     }
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView showLoginForm(ModelAndView modelAndView,
-                                      HttpServletRequest request) {
+                                      HttpServletRequest request , @RequestParam Map requestParam) {
+        if(requestParam.get("checkout")!=null){
+            modelAndView.addObject("checkout",requestParam.get("checkout"));
+        }
         modelAndView.setViewName("login");
         if(request.getSession().getAttribute("name")!=null){
             modelAndView.setViewName("redirect:/home");
@@ -52,7 +55,9 @@ public class LoggingController {
 
                                                 @RequestParam Map requestParams) {
 
-
+            if(requestParams.get("checkout")!=null){
+                modelAndView.addObject("checkout",requestParams.get("checkout"));
+            }
         if (requestParams.get("email") != null) {
              User user = userService.findByEmail((String) requestParams.get("email"));
             System.out.println(user);
@@ -80,6 +85,12 @@ public class LoggingController {
             request.getSession().setAttribute("fname",user.getFirstName());
             request.getSession().setAttribute("role",user.getRole());
 
+            if(requestParams.get("checkout")!=null ){
+                if(!(((String)requestParams.get("checkout")).equals(""))) {
+                    modelAndView.setViewName("redirect:/checkout1");
+                    return modelAndView;
+                }
+            }
             modelAndView.setViewName("redirect:/customer-account");
             return modelAndView;
         }

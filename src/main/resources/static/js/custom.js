@@ -257,7 +257,10 @@ simpleCart({
                 return " <img src='"+ item.get("thumb")+"' alt=\"notfound\"> ";
             }, label: "Product" ,attr : "thumb" },
         /* Name */
-        { attr: "name", label: false },
+        { attr: "name", label: false  ,view : function (item,col) {
+            return "<a href='/product-details?id="+item.get("product")+"' >"+item.get("name")+"</a>";
+
+            }},
 
 
         /* Quantity */
@@ -275,4 +278,3 @@ simpleCart({
     ]
 
 });
-

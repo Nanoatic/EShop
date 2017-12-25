@@ -5,6 +5,7 @@ import org.springframework.data.solr.core.mapping.Indexed;
 import org.springframework.data.solr.core.mapping.SolrDocument;
 
 import javax.persistence.*;
+import java.util.List;
 
 @org.hibernate.search.annotations.Indexed
 @SolrDocument(solrCoreName = "product")
@@ -23,6 +24,26 @@ public class Product {
 
     @Column(name = "price")
     private Float price;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_fk")
+    private List<Order> orders;
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
 
     @org.hibernate.search.annotations.Field
     @Field
@@ -57,14 +78,6 @@ public class Product {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 
     public String getCategory() {

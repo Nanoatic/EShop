@@ -11,13 +11,50 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Temporal(TemporalType.TIMESTAMP )
+    @Temporal(TemporalType.TIMESTAMP)
     private Date order_date;
 
+    public String getPayement() {
+        return payement;
+    }
+
+    public void setPayement(String payement) {
+        this.payement = payement;
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
     private String status;
-    @OneToMany(fetch=FetchType.EAGER)
+    private String payement;
+    private String method;
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "order_fk")
     private List<OrderLine> orderLines;
+
+    @Embedded
+    private Address address;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
     public Long getId() {
         return id;

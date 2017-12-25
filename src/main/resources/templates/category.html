@@ -107,11 +107,11 @@ _________________________________________________________ -->
                     <th:block th:each="product : ${products}">
                     <div class="simpleCart_shelfItem">
                         <div class="col-md-4 col-sm-6">
+                            <input type="text" style="display: none" th:value="${product.getId()}"  class="item_product">
                             <div class="product">
                                 <div class="flip-container">
                                     <div class="flipper">
                                         <div class="front">
-                                            <input type="hidden" th:value="${product.getId()}" class="item_id">
                                             <input type="hidden" value="1" class="item_quantity">
                                             <a th:href="@{/product-details(id=${product.getId()})}">
                                                 <img th:src="@{${product.getPhoto()}}" alt="" class="img-responsive">
