@@ -23,65 +23,46 @@
             <div class="col-md-9" id="checkout">
 
                 <div class="box">
-                    <form method="post" action="checkout4.html">
+                    <form method="post" onsubmit="simpleCart.empty(); simpleCart.update();" th:action="@{/checkout4}">
                         <h1>Checkout - Order review</h1>
                         <ul class="nav nav-pills nav-justified">
-                            <li><a href="checkout1.html"><i class="fa fa-map-marker"></i><br>Address</a>
+                            <li><a th:href="@{/checkout1}"><i class="fa fa-map-marker"></i><br>Address</a>
                             </li>
-                            <li><a href="checkout2.html"><i class="fa fa-truck"></i><br>Delivery Method</a>
+                            <li><a th:href="@{/checkout2}"><i class="fa fa-truck"></i><br>Delivery Method</a>
                             </li>
-                            <li><a href="checkout3.html"><i class="fa fa-money"></i><br>Payment Method</a>
+                            <li><a th:href="@{/checkout3}"><i class="fa fa-money"></i><br>Payment Method</a>
                             </li>
-                            <li class="active"><a href="#"><i class="fa fa-eye"></i><br>Order Review</a>
+                            <li class="active"><a><i class="fa fa-eye"></i><br>Order Review</a>
                             </li>
                         </ul>
 
                         <div class="content">
                             <div class="table-responsive">
+
+                                <div class="simpleCart_items" >
+                                </div>
+
+                            </div>
+                            <div class="table-responsive">
                                 <table class="table">
-                                    <thead>
+
                                     <tr>
-                                        <th colspan="2">Product</th>
-                                        <th>Quantity</th>
-                                        <th>Unit price</th>
-                                        <th>Discount</th>
-                                        <th>Total</th>
+
+                                        <td colspan="10"><b>Total</b></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td colspan="2"><b><span id="simpleCart_total" class="simpleCart_total"></span></b></td>
                                     </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>
-                                            <a href="#">
-                                                <img src="img/detailsquare.jpg" alt="White Blouse Armani">
-                                            </a>
-                                        </td>
-                                        <td><a href="#">White Blouse Armani</a>
-                                        </td>
-                                        <td>2</td>
-                                        <td>$123.00</td>
-                                        <td>$0.00</td>
-                                        <td>$246.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="#">
-                                                <img src="img/basketsquare.jpg" alt="Black Blouse Armani">
-                                            </a>
-                                        </td>
-                                        <td><a href="#">Black Blouse Armani</a>
-                                        </td>
-                                        <td>1</td>
-                                        <td>$200.00</td>
-                                        <td>$0.00</td>
-                                        <td>$200.00</td>
-                                    </tr>
-                                    </tbody>
-                                    <tfoot>
-                                    <tr>
-                                        <th colspan="5">Total</th>
-                                        <th>$446.00</th>
-                                    </tr>
-                                    </tfoot>
+
+
                                 </table>
 
                             </div>
@@ -122,9 +103,12 @@
                                 <td>Order subtotal</td>
                                 <th><span id="simpleCart_total2" class="simpleCart_total"></span> </th>
                             </tr>
+                            <!--/*@thymesVar id="order" type="nano.project.eshop.models.Order"*/-->
                             <tr>
                                 <td>Shipping and handling</td>
-                                <th> <span id="simpleCart_shipping" class="simpleCart_shipping"></span> </th>
+                                <th>
+                                    <span th:unless="${order.getMethod()}" id="simpleCart_shipping" class="simpleCart_shipping"></span>
+                                <span th:if="${order.getMethod()}" th:text="${T(nano.project.eshop.Helpers).getMethodWorth(order.getMethod()) } + ' DT' "></span> </th>
                             </tr>
                             <tr>
                                 <td>Tax Rate</td>
@@ -136,7 +120,9 @@
                             </tr>
                             <tr class="total">
                                 <td>Total</td>
-                                <th> <span id="simpleCart_grandTotal" class="simpleCart_grandTotal"></span></th>
+                                <th> <span th:unless="${order.getMethod()}" id="simpleCart_grandTotal" class="simpleCart_grandTotal"></span>
+                                    <span th:if="${order.getMethod()}" th:text="${T(nano.project.eshop.Helpers).getTotalPrice(order) } + ' DT' "></span>
+                                </th>
                             </tr>
                             </tbody>
                         </table>

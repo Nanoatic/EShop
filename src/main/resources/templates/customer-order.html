@@ -15,11 +15,11 @@
             <div class="col-md-12">
 
                 <ul class="breadcrumb">
-                    <li><a href="index.html">Home</a>
+                    <li><a th:href="@{/home}">Home</a>
                     </li>
-                    <li><a href="#">My orders</a>
+                    <li><a th:href="@{/customer-orders}">My orders</a>
                     </li>
-                    <li>Order # 1735</li>
+                    <li th:text="'Order # '+${order.getId()}">Order # 1735</li>
                 </ul>
 
             </div>
@@ -37,16 +37,13 @@ _________________________________________________________ -->
 
                         <ul class="nav nav-pills nav-stacked">
                             <li class="active">
-                                <a href="customer-orders.html"><i class="fa fa-list"></i> My orders</a>
+                                <a th:href="@{/customer-orders}"><i class="fa fa-list"></i> My orders</a>
                             </li>
                             <li>
-                                <a href="customer-wishlist.html"><i class="fa fa-heart"></i> My wishlist</a>
+                                <a th:href="@{/customer-account}"><i class="fa fa-user"></i> My account</a>
                             </li>
                             <li>
-                                <a href="customer-account.html"><i class="fa fa-user"></i> My account</a>
-                            </li>
-                            <li>
-                                <a href="index.html"><i class="fa fa-sign-out"></i> Logout</a>
+                                <a th:href="@{/logout}"><i class="fa fa-sign-out"></i> Logout</a>
                             </li>
                         </ul>
                     </div>
@@ -56,13 +53,16 @@ _________________________________________________________ -->
 
                 <!-- *** CUSTOMER MENU END *** -->
             </div>
+            <!--/*@thymesVar id="order" type="nano.project.eshop.models.Order"*/-->
+            <!--/*@thymesVar id="orderline" type="nano.project.eshop.models.OrderLine"*/-->
 
             <div class="col-md-9" id="customer-order">
-                <div class="box">
-                    <h1>Order #1735</h1>
 
-                    <p class="lead">Order #1735 was placed on <strong>22/06/2013</strong> and is currently <strong>Being prepared</strong>.</p>
-                    <p class="text-muted">If you have any questions, please feel free to <a href="contact.html">contact us</a>, our customer service center is working for you 24/7.</p>
+                <div class="box">
+                    <h1 th:text="'Order #'+${order.getId()}"></h1>
+
+                    <p class="lead" th:inline="text">Order #[[${order.getId()}]] was placed on <strong>[[${T(nano.project.eshop.Helpers).dateFormater(order.getOrder_date(),'dd/MM/yyyy')}]]</strong> and is currently <strong>[[${order.getStatus()}]]</strong>.</p>
+                    <p class="text-muted" th:inline="text">If you have any questions, please feel free to <a th:href="@{/contactus}">contact us</a>, our customer service center is working for you 24/7.</p>
 
                     <hr>
 
@@ -73,79 +73,67 @@ _________________________________________________________ -->
                                 <th colspan="2">Product</th>
                                 <th>Quantity</th>
                                 <th>Unit price</th>
-                                <th>Discount</th>
                                 <th>Total</th>
                             </tr>
                             </thead>
                             <tbody>
+                            <th:block th:each="orderline : ${order.getOrderLines()}">
                             <tr>
                                 <td>
-                                    <a href="#">
-                                        <img src="img/detailsquare.jpg" alt="White Blouse Armani">
+                                    <a >
+                                        <img th:href="@{/product-details(id =${orderline.getProduct().getId()})}" th:src="@{${orderline.getProduct().getPhoto()}}" alt="notfound">
                                     </a>
                                 </td>
-                                <td><a href="#">White Blouse Armani</a>
+                                <td><a th:href="@{/product-details(id =${orderline.getProduct().getId()})}" th:text="${orderline.getProduct().getName()}"></a>
                                 </td>
-                                <td>2</td>
-                                <td>$123.00</td>
-                                <td>$0.00</td>
-                                <td>$246.00</td>
+                                <td th:text="${orderline.getQuantity()}"></td>
+                                <td th:text="${orderline.getProduct().getPrice()}"></td>
+                                <td th:text="${orderline.getProduct().getPrice()}*${orderline.getQuantity()}"></td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <a href="#">
-                                        <img src="img/basketsquare.jpg" alt="Black Blouse Armani">
-                                    </a>
-                                </td>
-                                <td><a href="#">Black Blouse Armani</a>
-                                </td>
-                                <td>1</td>
-                                <td>$200.00</td>
-                                <td>$0.00</td>
-                                <td>$200.00</td>
-                            </tr>
+                            </th:block>
                             </tbody>
                             <tfoot>
                             <tr>
                                 <th colspan="5" class="text-right">Order subtotal</th>
-                                <th>$446.00</th>
+                                <th th:text="${T(nano.project.eshop.Helpers).getSubTotal(order) } + ' DT'"></th>
                             </tr>
                             <tr>
                                 <th colspan="5" class="text-right">Shipping and handling</th>
-                                <th>$10.00</th>
+                                <th th:text="${T(nano.project.eshop.Helpers).getMethodWorth(order.getMethod()) } + ' DT' "></th>
                             </tr>
                             <tr>
                                 <th colspan="5" class="text-right">Tax</th>
-                                <th>$0.00</th>
+                                <th>0.00&nbsp;DT</th>
                             </tr>
                             <tr>
                                 <th colspan="5" class="text-right">Total</th>
-                                <th>$456.00</th>
+                                <th th:text="${T(nano.project.eshop.Helpers).getTotalPrice(order) } + ' DT'"></th>
                             </tr>
                             </tfoot>
                         </table>
 
                     </div>
+
                     <!-- /.table-responsive -->
 
                     <div class="row addresses">
                         <div class="col-md-6">
-                            <h2>Invoice address</h2>
-                            <p>John Brown
-                                <br>13/25 New Avenue
-                                <br>New Heaven
-                                <br>45Y 73J
-                                <br>England
-                                <br>Great Britain</p>
+                            <h2>Billing address</h2>
+                            <p th:inline="text">[[${order.getOwner().getFirstName()}]]&nbsp; [[${order.getOwner().getLastName()}]]
+                                <br>[[${order.getAddress().getStreet()}]]
+                                <br>[[${order.getAddress().getZip_code()}]]
+                                <br>[[${order.getAddress().getCity()}]]
+                                <br>[[${order.getAddress().getCountry()}]]
+                            </p>
                         </div>
                         <div class="col-md-6">
                             <h2>Shipping address</h2>
-                            <p>John Brown
-                                <br>13/25 New Avenue
-                                <br>New Heaven
-                                <br>45Y 73J
-                                <br>England
-                                <br>Great Britain</p>
+                            <p th:inline="text">[[${order.getOwner().getFirstName()}]]&nbsp; [[${order.getOwner().getLastName()}]]
+                                <br>[[${order.getAddress().getStreet()}]]
+                                <br>[[${order.getAddress().getZip_code()}]]
+                                <br>[[${order.getAddress().getCity()}]]
+                                <br>[[${order.getAddress().getCountry()}]]
+                            </p>
                         </div>
                     </div>
 

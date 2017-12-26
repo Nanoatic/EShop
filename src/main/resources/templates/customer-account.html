@@ -112,6 +112,10 @@ _________________________________________________________ -->
                     <h3>Personal details</h3>
                     <form th:action="@{/customer-account}" method="post">
                         <!--/*@thymesVar id="user" type="nano.project.eshop.models.User"*/-->
+                        <!--/*@thymesVar id="successMessage" type="java.lang.String"*/-->
+                        <!--/*@thymesVar id="warningMessage" type="java.lang.String"*/-->
+                        <!--/*@thymesVar id="errorMessage" type="java.lang.String"*/-->
+
                         <div th:if="${successMessage}"
                              class="alert alert-success" role="alert"
                              th:text="${successMessage}"></div>

@@ -14,18 +14,18 @@ _________________________________________________________ -->
             </div>
             <div class="col-md-6" data-animate="fadeInDown">
                 <ul class="menu">
-                    <li  th:if="!${#httpServletRequest.getSession().getAttribute('name')}"><a th:href="@{/login}">Login</a>
+                    <li  th:if="!${session.name}"><a th:href="@{/login}">Login</a>
                     </li>
-                    <li  th:if="!${#httpServletRequest.getSession().getAttribute('name')}"><a th:href="@{/register}">Register</a>
+                    <li  th:if="!${session.name}"><a th:href="@{/register}">Register</a>
                     </li>
-                    <li  th:if="${#httpServletRequest.getSession().getAttribute('name')}" th:inline="text" style="color: #FFFFFF;">Welcome [[${#httpServletRequest.getSession().getAttribute('fname')}]]
+                    <li  th:if="${session.name}" th:inline="text" style="color: #FFFFFF;">Welcome [[${session.fname}]]
                     </li>
-                    <li  th:if="${#httpServletRequest.getSession().getAttribute('name')}"><a th:href="@{/customer-account}">Profile</a>
+                    <li  th:if="${session.name}"><a th:href="@{/customer-account}">Profile</a>
                     </li>
-                    <li  th:if="${#httpServletRequest.getSession().getAttribute('name')}"><a th:href="@{/logout}">Logout</a>
+                    <li  th:if="${session.name}"><a th:href="@{/logout}">Logout</a>
                     </li>
                     </li>
-                    <li  th:if="${#httpServletRequest.getSession().getAttribute('role')=='admin'}"><a th:href="@{/admin}">Admin</a>
+                    <li  th:if="${session.role=='admin'}"><a th:href="@{/admin}">Admin</a>
                     </li>
 
                 </ul>

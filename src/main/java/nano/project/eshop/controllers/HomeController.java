@@ -21,12 +21,11 @@ public class HomeController {
     }
 
 
-
-    @RequestMapping(value ={"/home" , "/"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/home", "/"}, method = RequestMethod.GET)
     public ModelAndView showHome(ModelAndView modelAndView) {
         modelAndView.setViewName("home");
         List<Product> products = productService.findLast10();
-        modelAndView.addObject("products",products);
+        modelAndView.addObject("products", products);
         return modelAndView;
     }
 

@@ -16,6 +16,6 @@ public class Category {
     public static final String CONSOLE = "Console";
     public static final String VIDEOGAME = "Video Game";
 
-    public static final String ALLBYNAME ="All by name" ;
+    public static final String ALLBYNAME = "All by name";
 
 }

@@ -19,20 +19,27 @@
                     <li>Checkout - Address</li>
                 </ul>
             </div>
-
+            <!--/*@thymesVar id="order" type="nano.project.eshop.models.Order"*/-->
             <div class="col-md-9" id="checkout">
+                <!--/*@thymesVar id="order" type="nano.project.eshop.models.Order"*/-->
 
                 <div class="box">
                     <form method="post" th:action="@{/checkout1}">
                         <h1>Checkout</h1>
                         <ul class="nav nav-pills nav-justified">
-                            <li class="active"><a href="#"><i class="fa fa-map-marker"></i><br>Address</a>
+                            <li class="active"><a ><i class="fa fa-map-marker"></i><br>Address</a>
                             </li>
-                            <li class="disabled"><a href="#"><i class="fa fa-truck"></i><br>Delivery Method</a>
+                            <li th:class="${order.getAddress()} ? '' : 'disabled'">
+                                <a th:if="${order.getAddress()}" th:href="@{/checkout2}"><i class="fa fa-truck"></i><br>Delivery Method</a>
+                                <a th:unless="${order.getAddress()}" ><i class="fa fa-truck"></i><br>Delivery Method</a>
                             </li>
-                            <li class="disabled"><a href="#"><i class="fa fa-money"></i><br>Payment Method</a>
+                            <li th:class="${order.getMethod()} ? '' : 'disabled'">
+                                <a th:if="${order.getMethod()}" th:href="@{/checkout3}"><i class="fa fa-money"></i><br>Payment Method</a>
+                                <a th:unless="${order.getMethod()}" ><i class="fa fa-money"></i><br>Payment Method</a>
                             </li>
-                            <li class="disabled"><a href="#"><i class="fa fa-eye"></i><br>Order Review</a>
+                            <li th:class="${order.getPayement()} ? '' : 'disabled'">
+                                <a th:if="${order.getPayement()}" th:href="@{/checkout4}"><i class="fa fa-eye"></i><br>Order Review</a>
+                                <a th:unless="${order.getPayement()}" ><i class="fa fa-eye"></i><br>Order Review</a>
                             </li>
                         </ul>
 
@@ -135,9 +142,12 @@
                                 <td>Order subtotal</td>
                                 <th><span id="simpleCart_total2" class="simpleCart_total"></span> </th>
                             </tr>
+                            <!--/*@thymesVar id="order" type="nano.project.eshop.models.Order"*/-->
                             <tr>
                                 <td>Shipping and handling</td>
-                                <th> <span id="simpleCart_shipping" class="simpleCart_shipping"></span> </th>
+                                <th>
+                                    <span th:unless="${order.getMethod()}" id="simpleCart_shipping" class="simpleCart_shipping"></span>
+                                    <span th:if="${order.getMethod()}" th:text="${T(nano.project.eshop.Helpers).getMethodWorth(order.getMethod()) } + ' DT' "></span> </th>
                             </tr>
                             <tr>
                                 <td>Tax Rate</td>
@@ -149,7 +159,9 @@
                             </tr>
                             <tr class="total">
                                 <td>Total</td>
-                                <th> <span id="simpleCart_grandTotal" class="simpleCart_grandTotal"></span></th>
+                                <th> <span th:unless="${order.getMethod()}" id="simpleCart_grandTotal" class="simpleCart_grandTotal"></span>
+                                    <span th:if="${order.getMethod()}" th:text="${T(nano.project.eshop.Helpers).getTotalPrice(order) } + ' DT' "></span>
+                                </th>
                             </tr>
                             </tbody>
                         </table>

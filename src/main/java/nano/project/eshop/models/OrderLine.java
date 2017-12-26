@@ -10,6 +10,18 @@ public class OrderLine {
     private Long id;
     private Integer quantity;
 
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="corder_id")
+    private Order order;
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
     @OneToOne
     @JoinColumn(name = "order_line_fk")
     private Product product;

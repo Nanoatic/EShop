@@ -7,7 +7,7 @@ import org.springframework.data.solr.repository.Query;
 import org.springframework.data.solr.repository.SolrCrudRepository;
 
 public interface SolrProductRepository extends SolrCrudRepository<Product,String>{
-    @Query("name:*?0*")
-    Page<Product> findByName(String name, Pageable pageable);
+    @Query("name:*?0* OR details:*?0*")
+    Page<Product> findByNameContainingIgnoreCaseOrDetailsContainingIgnoreCase(String name,String details, Pageable pageable);
 
 }

@@ -22,12 +22,12 @@ public class ProductService {
     }
 
 
-    public Product save(Product product){
+    public Product save(Product product) {
         return productRepository.save(product);
     }
 
-    public Page<Product> findByCategory(String category , Pageable pageable){
-        return  productRepository.findByCategory(category,pageable);
+    public Page<Product> findByCategory(String category, Pageable pageable) {
+        return productRepository.findByCategory(category, pageable);
     }
 
     public Product findById(Long id) {
@@ -35,14 +35,12 @@ public class ProductService {
     }
 
 
-    public List<Product> findLast10(){
+    public List<Product> findLast10() {
         return productRepository.findTop10ByOrderByIdDesc();
     }
 
 
-
-
-    public List<Product> findByCategory(String category){
+    public List<Product> findByCategory(String category) {
         return productRepository.findByCategory(category);
     }
 
@@ -51,15 +49,13 @@ public class ProductService {
         return productRepository.count();
     }
 
-    public Long countByCategory(String category){
-        return  productRepository.countByCategory(category);
+    public Long countByCategory(String category) {
+        return productRepository.countByCategory(category);
     }
 
     public void delete(long id) {
         productRepository.delete(id);
     }
-
-
 
 
 }

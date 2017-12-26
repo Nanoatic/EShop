@@ -23,59 +23,64 @@ public class CategoryController {
     private SolrProductService solrProductService;
     private HibernateSearchService hibernateSearchService;
     private ProductService productService;
+
     @Autowired
-    public CategoryController(HibernateSearchService hibernateSearchService , ProductService productService ,SolrProductService solrProductService) {
+    public CategoryController(HibernateSearchService hibernateSearchService, ProductService productService, SolrProductService solrProductService) {
         this.hibernateSearchService = hibernateSearchService;
-        this.productService= productService;
+        this.productService = productService;
         this.solrProductService = solrProductService;
     }
 
-    @RequestMapping(value = "/category" , method = RequestMethod.GET)
-    public ModelAndView showCategory(ModelAndView modelAndView , @RequestParam Map requestParam, Pageable pageable){
+    @RequestMapping(value = "/category", method = RequestMethod.GET)
+    public ModelAndView showCategory(ModelAndView modelAndView, @RequestParam Map requestParam, Pageable pageable) {
 
         modelAndView.setViewName("category");
         Long numberOfComputers =
-                productService.countByCategory(Category.DESKTOP)+
-                productService.countByCategory(Category.LAPTOP);
+                productService.countByCategory(Category.DESKTOP) +
+                        productService.countByCategory(Category.LAPTOP);
         Long numberOfComponents =
-                productService.countByCategory(Category.MOTHERBOARD)+
-                 productService.countByCategory(Category.GRAPHICCARDS)+
-                 productService.countByCategory(Category.STORAGE)+
-                 productService.countByCategory(Category.CASE);
+                productService.countByCategory(Category.MOTHERBOARD) +
+                        productService.countByCategory(Category.GRAPHICCARDS) +
+                        productService.countByCategory(Category.STORAGE) +
+                        productService.countByCategory(Category.CASE);
         Long numberOfAccessories =
-                productService.countByCategory(Category.MOUSE)+
-                productService.countByCategory(Category.KEYBOARD)+productService.countByCategory(Category.HEADPHONE);
+                productService.countByCategory(Category.MOUSE) +
+                        productService.countByCategory(Category.KEYBOARD) + productService.countByCategory(Category.HEADPHONE);
         Long numberOfMiscellaneous =
-                productService.countByCategory(Category.CONSOLE)+
-                productService.countByCategory(Category.HEADPHONE);
+                productService.countByCategory(Category.CONSOLE) +
+                        productService.countByCategory(Category.HEADPHONE);
 
-        modelAndView.addObject("numberOfComputers",numberOfComputers);
-        modelAndView.addObject("numberOfComponents",numberOfComponents);
-        modelAndView.addObject("numberOfAccessories",numberOfAccessories);
-        modelAndView.addObject("numberOfMiscellaneous",numberOfMiscellaneous);
+        modelAndView.addObject("numberOfComputers", numberOfComputers);
+        modelAndView.addObject("numberOfComponents", numberOfComponents);
+        modelAndView.addObject("numberOfAccessories", numberOfAccessories);
+        modelAndView.addObject("numberOfMiscellaneous", numberOfMiscellaneous);
 
-        if(requestParam.get("searchsubmit")!=null){
-            String searchString = (String) requestParam.get("searchname");
-            if(searchString==null){
-                searchString="";
+        if (requestParam.get("searchsubmit") != null) {
+            if(!((String)requestParam.get("searchsubmit")).equals("")) {
+                String searchString = (String) requestParam.get("searchname");
+                if (searchString == null) {
+                    searchString = "";
+                }
+                Page<Product> productPage = solrProductService.searchByName(searchString, pageable);
+                PageWrapper<Product> page = new PageWrapper<Product>(productPage, "/category");
+
+                List<Product> productList = page.getContent();
+                modelAndView.addObject("products", productList);
+                modelAndView.addObject("page", page);
+                modelAndView.addObject("selectedCategory", Category.ALLBYNAME);
+                modelAndView.addObject("searchsubmit","value");
+                modelAndView.addObject("searchname",searchString);
+                return modelAndView;
             }
-            Page<Product> productPage = solrProductService.searchByName(searchString,pageable);
-            PageWrapper<Product> page = new PageWrapper<Product>(productPage, "/category");
-
-            List<Product> productList = page.getContent();
-            modelAndView.addObject("products",productList);
-            modelAndView.addObject("page",page);
-            modelAndView.addObject("selectedCategory",Category.ALLBYNAME);
-            return modelAndView;
         }
-        if(requestParam.get("category")!=null){
+        if (requestParam.get("category") != null) {
             String category = (String) requestParam.get("category");
-            Page<Product> productPage =  productService.findByCategory(category,pageable);
-            PageWrapper<Product> page = new PageWrapper<Product>(productPage,"/category");
+            Page<Product> productPage = productService.findByCategory(category, pageable);
+            PageWrapper<Product> page = new PageWrapper<Product>(productPage, "/category");
             List<Product> productList = page.getContent();
-            modelAndView.addObject("products",productList);
-            modelAndView.addObject("page",page);
-            modelAndView.addObject("selectedCategory",category+"s");
+            modelAndView.addObject("products", productList);
+            modelAndView.addObject("page", page);
+            modelAndView.addObject("selectedCategory", category );
             return modelAndView;
         }
         modelAndView.setViewName("redirect:/home");

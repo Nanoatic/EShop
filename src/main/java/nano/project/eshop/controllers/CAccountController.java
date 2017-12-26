@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import java.text.ParseException;
+import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
@@ -29,10 +28,10 @@ public class CAccountController {
     }
 
     @RequestMapping(value = "/customer-account", method = RequestMethod.GET)
-    public ModelAndView showCustomerAccount(ModelAndView modelAndView, @RequestParam(required = false) Map requestParams, HttpServletRequest request) {
+    public ModelAndView showCustomerAccount(ModelAndView modelAndView, @RequestParam(required = false) Map requestParams, HttpSession request) {
 
         modelAndView.setViewName("customer-account");
-        String email = (String) request.getSession().getAttribute("name");
+        String email = (String) request.getAttribute("name");
         if (email == null) {
             modelAndView.setViewName("redirect:/home");
             return modelAndView;
@@ -45,27 +44,27 @@ public class CAccountController {
     }
 
     @RequestMapping(value = "/customer-account", method = RequestMethod.POST)
-    public ModelAndView submitCustomerAccount(ModelAndView modelAndView, @RequestParam Map requestParams, HttpServletRequest request) {
+    public ModelAndView submitCustomerAccount(ModelAndView modelAndView, @RequestParam Map requestParams, HttpSession request) {
         modelAndView.setViewName("customer-account");
-        String email = (String) request.getSession().getAttribute("name");
+        String email = (String) request.getAttribute("name");
         if (email == null) {
             modelAndView.setViewName("redirect:/home");
             return modelAndView;
         }
         User user = userService.findByEmail(email);
-        modelAndView.addObject("user",user);
+        modelAndView.addObject("user", user);
         String bdate = (String) requestParams.get("bdate");
-        boolean dateIsSet=true;
-        if(bdate!=null) {
+        boolean dateIsSet = true;
+        if (bdate != null) {
             SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd");
             Date date = null;
             try {
                 date = formatter1.parse((String) requestParams.get("bdate"));
             } catch (Exception e) {
                 modelAndView.addObject("warningMessage", "Date wrong format!");
-               dateIsSet = false;
+                dateIsSet = false;
             }
-            if(dateIsSet) {
+            if (dateIsSet) {
                 user.setBdate(date);
             }
         }
@@ -86,7 +85,7 @@ public class CAccountController {
             user.setLastName((String) requestParams.get("lastname"));
             user.setAddress(address);
             userService.saveUser(user);
-            request.getSession().setAttribute("fname", user.getFirstName());
+            request.setAttribute("fname", user.getFirstName());
             modelAndView.addObject("successMessage", "Changes saved succuessfully!");
             return modelAndView;
         } else {
@@ -94,18 +93,18 @@ public class CAccountController {
                 String oldpwd = (String) requestParams.get("oldpassword");
                 String newpwd = (String) requestParams.get("newpassword");
                 String rnewpwd = (String) requestParams.get("repeatnewpassword");
-                if(!newpwd.equals(rnewpwd)){
+                if (!newpwd.equals(rnewpwd)) {
                     modelAndView.addObject("perrorMessage", "Passwords are no identical!");
                     return modelAndView;
                 }
-                if(!bCryptPasswordEncoder.matches(oldpwd,user.getPassword())){
+                if (!bCryptPasswordEncoder.matches(oldpwd, user.getPassword())) {
                     modelAndView.addObject("perrorMessage", "Wrong old password!");
                     return modelAndView;
                 }
                 user.setPassword(bCryptPasswordEncoder.encode(newpwd));
                 userService.saveUser(user);
                 modelAndView.addObject("psuccessMessage", "Password changed with success!");
-                return  modelAndView;
+                return modelAndView;
             }
         }
         return modelAndView;

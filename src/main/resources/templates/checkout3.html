@@ -23,17 +23,20 @@
             <div class="col-md-9" id="checkout">
 
                 <div class="box">
-                    <form method="post" action="checkout4.html">
+                    <form method="post" th:action="@{/checkout3}">
+                        <!--/*@thymesVar id="order" type="nano.project.eshop.models.Order"*/-->
+
                         <h1>Checkout - Payment method</h1>
                         <ul class="nav nav-pills nav-justified">
-                            <li><a href="checkout1.html"><i class="fa fa-map-marker"></i><br>Address</a>
+                            <li><a th:href="@{/checkout1}"><i class="fa fa-map-marker"></i><br>Address</a>
                             </li>
-                            <li><a href="checkout2.html"><i class="fa fa-truck"></i><br>Delivery Method</a>
+                            <li><a th:href="@{/checkout2}"><i class="fa fa-truck"></i><br>Delivery Method</a>
                             </li>
-                            <li class="active"><a href="#"><i class="fa fa-money"></i><br>Payment Method</a>
+                            <li class="active"><a ><i class="fa fa-money"></i><br>Payment Method</a>
                             </li>
-                            <li class="disabled"><a href="checkout4.html"><i class="fa fa-eye"></i><br>Order Review</a>
+                            <li th:class="${order.getPayement()} ? '' : 'disabled'"><a th:href="@{/checkout4}"><i class="fa fa-eye"></i><br>Order Review</a>
                             </li>
+
                         </ul>
 
                         <div class="content">
@@ -41,26 +44,26 @@
                                 <div class="col-sm-6">
                                     <div class="box payment-method">
 
-                                        <h4>Paypal</h4>
+                                        <h4 th:text="${T(nano.project.eshop.models.OrderPayement).PAYPAL}">Paypal</h4>
 
                                         <p>We like it all.</p>
 
                                         <div class="box-footer text-center">
 
-                                            <input type="radio" name="payment" value="payment1" required>
+                                            <input th:checked="(${order.getPayement()} == ${T(nano.project.eshop.models.OrderPayement).PAYPAL}  )? 'true' : 'false'" type="radio" name="payment" th:value="${T(nano.project.eshop.models.OrderPayement).PAYPAL}" required>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="box payment-method">
 
-                                        <h4>Payment gateway</h4>
+                                        <h4 th:text="${T(nano.project.eshop.models.OrderPayement).PAYMENTGATEWAY}"></h4>
 
                                         <p>VISA and Mastercard only.</p>
 
                                         <div class="box-footer text-center">
 
-                                            <input type="radio" name="payment" value="payment2">
+                                            <input th:checked="(${order.getPayement()} == ${T(nano.project.eshop.models.OrderPayement).PAYMENTGATEWAY}  )? 'true' : 'false'" type="radio" name="payment" th:value="${T(nano.project.eshop.models.OrderPayement).PAYMENTGATEWAY}">
                                         </div>
                                     </div>
                                 </div>
@@ -68,13 +71,13 @@
                                 <div class="col-sm-6">
                                     <div class="box payment-method">
 
-                                        <h4>Cash on delivery</h4>
+                                        <h4 th:text="${T(nano.project.eshop.models.OrderPayement).CASHONDELIVERY}">Cash on delivery</h4>
 
                                         <p>You pay when you get it.</p>
 
                                         <div class="box-footer text-center">
 
-                                            <input type="radio" name="payment" value="payment3">
+                                            <input th:checked="(${order.getPayement()} == ${T(nano.project.eshop.models.OrderPayement).CASHONDELIVERY}  )? 'true' : 'false'" type="radio" name="payment" th:value="${T(nano.project.eshop.models.OrderPayement).CASHONDELIVERY}">
                                         </div>
                                     </div>
                                 </div>
@@ -117,9 +120,12 @@
                                 <td>Order subtotal</td>
                                 <th><span id="simpleCart_total2" class="simpleCart_total"></span> </th>
                             </tr>
+                            <!--/*@thymesVar id="order" type="nano.project.eshop.models.Order"*/-->
                             <tr>
                                 <td>Shipping and handling</td>
-                                <th> <span id="simpleCart_shipping" class="simpleCart_shipping"></span> </th>
+                                <th>
+                                    <span th:unless="${order.getMethod()}" id="simpleCart_shipping" class="simpleCart_shipping"></span>
+                                    <span th:if="${order.getMethod()}" th:text="${T(nano.project.eshop.Helpers).getMethodWorth(order.getMethod()) } + ' DT' "></span> </th>
                             </tr>
                             <tr>
                                 <td>Tax Rate</td>
@@ -131,7 +137,9 @@
                             </tr>
                             <tr class="total">
                                 <td>Total</td>
-                                <th> <span id="simpleCart_grandTotal" class="simpleCart_grandTotal"></span></th>
+                                <th> <span th:unless="${order.getMethod()}" id="simpleCart_grandTotal" class="simpleCart_grandTotal"></span>
+                                    <span th:if="${order.getMethod()}" th:text="${T(nano.project.eshop.Helpers).getTotalPrice(order) } + ' DT' "></span>
+                                </th>
                             </tr>
                             </tbody>
                         </table>

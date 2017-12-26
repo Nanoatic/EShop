@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @Controller
@@ -19,54 +18,57 @@ public class LoggingController {
 
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     private UserService userService;
+
     @Autowired
     public LoggingController(BCryptPasswordEncoder bCryptPasswordEncoder, UserService userService) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.userService = userService;
 
     }
+
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public ModelAndView logout(ModelAndView modelAndView,
-                                      HttpServletRequest request) {
+                               HttpSession request) {
         modelAndView.setViewName("redirect:/home");
-        if(request.getSession().getAttribute("name")!=null){
-         request.getSession().invalidate();
+        if (request.getAttribute("name") != null) {
+            request.invalidate();
         }
         return modelAndView;
 
     }
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView showLoginForm(ModelAndView modelAndView,
-                                      HttpServletRequest request , @RequestParam Map requestParam) {
-        if(requestParam.get("checkout")!=null){
-            modelAndView.addObject("checkout",requestParam.get("checkout"));
+                                      HttpSession request, @RequestParam Map requestParam) {
+        if (requestParam.get("checkout") != null) {
+            modelAndView.addObject("checkout", requestParam.get("checkout"));
         }
         modelAndView.setViewName("login");
-        if(request.getSession().getAttribute("name")!=null){
+        if (request.getAttribute("name") != null) {
             modelAndView.setViewName("redirect:/home");
         }
         return modelAndView;
 
     }
 
-        @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView processLoginForm(ModelAndView modelAndView,
-                                                HttpServletRequest request,
+                                         HttpSession request,
 
-                                                @RequestParam Map requestParams) {
+                                         @RequestParam Map requestParams) {
 
-            if(requestParams.get("checkout")!=null){
-                modelAndView.addObject("checkout",requestParams.get("checkout"));
-            }
+        if (requestParams.get("checkout") != null) {
+            modelAndView.addObject("checkout", requestParams.get("checkout"));
+        }
         if (requestParams.get("email") != null) {
-             User user = userService.findByEmail((String) requestParams.get("email"));
+            User user = userService.findByEmail((String) requestParams.get("email"));
             System.out.println(user);
             if (user == null) {
                 modelAndView.addObject("loginErrorMessage", "User is not in database !");
                 modelAndView.setViewName("login");
                 return modelAndView;
             }
-            if (!bCryptPasswordEncoder.matches((CharSequence) requestParams.get("password"),user.getPassword())) {
+            if (!bCryptPasswordEncoder.matches((CharSequence) requestParams.get("password"), user.getPassword())) {
                 modelAndView.addObject("loginErrorMessage", "Password is wrong !");
                 modelAndView.setViewName("login");
                 return modelAndView;
@@ -81,20 +83,20 @@ public class LoggingController {
 
             }
             //Set Session attribs on login
-            request.getSession().setAttribute("name", user.getEmail());
-            request.getSession().setAttribute("fname",user.getFirstName());
-            request.getSession().setAttribute("role",user.getRole());
+            request.setAttribute("name", user.getEmail());
+            request.setAttribute("fname", user.getFirstName());
+            request.setAttribute("role", user.getRole());
 
-            if(requestParams.get("checkout")!=null ){
-                if(!(((String)requestParams.get("checkout")).equals(""))) {
+            if (requestParams.get("checkout") != null) {
+                if (!(((String) requestParams.get("checkout")).equals(""))) {
                     modelAndView.setViewName("redirect:/checkout1");
                     return modelAndView;
                 }
             }
-            modelAndView.setViewName("redirect:/customer-account");
+            modelAndView.setViewName("redirect:/customer-orders");
             return modelAndView;
         }
-        modelAndView.setViewName("redirect:/customer-account");
+        modelAndView.setViewName("redirect:/customer-orders");
         return modelAndView;
 
     }

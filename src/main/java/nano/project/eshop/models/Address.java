@@ -7,7 +7,7 @@ import javax.persistence.Embeddable;
 public class Address {
     private String street;
     @Column(nullable = true)
-    private Integer zip_code=0;
+    private Integer zip_code = 0;
     private String city;
     private String country;
 

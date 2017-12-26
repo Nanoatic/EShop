@@ -19,7 +19,7 @@
                 <ul class="breadcrumb">
                     <li><a th:href="@{/home}">Home</a>
                     </li>
-                    <li th:text="${selectedCategory}"></li>
+                    <li th:text="${selectedCategory}+'s'"></li>
                 </ul>
             </div>
 
@@ -100,8 +100,8 @@ _________________________________________________________ -->
 
             <div class="col-md-9">
                 <div th:if=" ${selectedCategory}!=${T(nano.project.eshop.models.Category).ALLBYNAME}" class="box">
-                    <h1 th:text="${selectedCategory}"></h1>
-                    <p th:text=" 'We have the newest '+  ${selectedCategory} + ' enjoy your store browsing'"></p>
+                    <h1 th:text="${selectedCategory}+'s'"></h1>
+                    <p th:text=" 'We have the newest '+  ${selectedCategory} + 's enjoy your store browsing'"></p>
                 </div>
                 <div class="row products">
                     <th:block th:each="product : ${products}">
@@ -152,23 +152,23 @@ _________________________________________________________ -->
                             <!--/*@thymesVar id="page" type="nano.project.eshop.wrappers.PageWrapper<nano.project.eshop.models.Product>"*/-->
                             <li th:class="${page.firstPage}?'disabled':''">
                                 <span th:if='${page.firstPage}'>← First</span>
-                                <a th:if='${not page.firstPage}' th:href='@{${page.url}(page=0,size=${page.size})}'>← First</a>
+                                <a th:if='${not page.firstPage}' th:href='@{${page.url}(page=0,size=${page.size},category=${selectedCategory},searchname=${searchname},searchsubmit=${searchsubmit})}'>← First</a>
                             </li>
                             <li th:class="${page.hasPreviousPage}? '' : 'disabled'">
                                 <span th:if='${not page.hasPreviousPage}'>«</span>
-                                <a th:if='${page.hasPreviousPage}' th:href='@{${page.url}(page=${page.number-2},size=${page.size})}' title='Go to previous page'>«</a>
+                                <a th:if='${page.hasPreviousPage}' th:href='@{${page.url}(page=${page.number-2},size=${page.size},category=${selectedCategory},searchname=${searchname},searchsubmit=${searchsubmit})}' title='Go to previous page'>«</a>
                             </li>
                             <li th:each='item : ${page.items}' th:class="${item.current}? 'active' : ''">
                                 <span th:if='${item.current}' th:text='${item.number}'>1</span>
-                                <a th:if='${not item.current}' th:href='@{${page.url}(page=${item.number-1},size=${page.size})}'><span th:text='${item.number}'>1</span></a>
+                                <a th:if='${not item.current}' th:href='@{${page.url}(page=${item.number-1},size=${page.size},category=${selectedCategory},searchname=${searchname},searchsubmit=${searchsubmit})}'><span th:text='${item.number}'>1</span></a>
                             </li>
                             <li th:class="${page.hasNextPage}? '' : 'disabled'">
                                 <span th:if='${not page.hasNextPage}'>»</span>
-                                <a th:if='${page.hasNextPage}' th:href='@{${page.url}(page=${page.number},size=${page.size})}' title='Go to next page'>»</a>
+                                <a th:if='${page.hasNextPage}' th:href='@{${page.url}(page=${page.number},size=${page.size},category=${selectedCategory},searchname=${searchname},searchsubmit=${searchsubmit})}' title='Go to next page'>»</a>
                             </li>
                             <li th:class="${page.lastPage}? 'disabled' : ''">
                                 <span th:if='${page.lastPage}'>Last →</span>
-                                <a th:if='${not page.lastPage}' th:href='@{${page.url}(page=${page.totalPages - 1},size=${page.size})}'>Last →</a>
+                                <a th:if='${not page.lastPage}' th:href='@{${page.url}(page=${page.totalPages - 1},size=${page.size},category=${selectedCategory},searchname=${searchname},searchsubmit=${searchsubmit})}'>Last →</a>
                             </li>
                         </ul>
                     </div>

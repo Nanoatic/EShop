@@ -5,123 +5,135 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "customer")
 public class User {
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	
-	@Column(name = "email", nullable = false, unique = true)
-	@Email(message = "Please provide a valid e-mail")
-	@NotEmpty(message = "Please provide an e-mail")
-	private String email;
-	
-	@Column(name = "password")
-	private String password;
-	
-	@Column(name = "first_name")
-	@NotEmpty(message = "Please provide your first name")
-	private String firstName;
-	
-	@Column(name = "last_name")
-	@NotEmpty(message = "Please provide your last name")
-	private String lastName;
-	
-	@Column(name = "enabled")
-	private Boolean enabled;
-	
-	@Column(name = "confirmation_token")
-	private String confirmationToken;
+    private Long id;
 
-	@Column(name = "birth_date")
-	private Date bdate ;
+    @Column(name = "email", nullable = false, unique = true)
+    @Email(message = "Please provide a valid e-mail")
+    @NotEmpty(message = "Please provide an e-mail")
+    private String email;
 
-	@Column(name = "user_role")
-	private String role;
+    @Column(name = "password")
+    private String password;
 
-	public String getRole() {
-		return role;
-	}
+    @Column(name = "first_name")
+    @NotEmpty(message = "Please provide your first name")
+    private String firstName;
 
-	public void setRole(String role) {
-		this.role = role;
-	}
+    @Column(name = "last_name")
+    @NotEmpty(message = "Please provide your last name")
+    private String lastName;
 
-	@Embedded
-	private Address address ;
+    @Column(name = "enabled")
+    private Boolean enabled;
 
-	public Address getAddress() {
-		return address;
-	}
+    @Column(name = "confirmation_token")
+    private String confirmationToken;
 
-	public void setAddress(Address address) {
-		this.address = address;
-	}
+    @Column(name = "birth_date")
+    private Date bdate;
 
-	public Date getBdate() {
-		return bdate;
-	}
+    @OneToMany(mappedBy = "owner")
+    private List<Order> orders;
 
-	public void setBdate(Date bdate) {
-		this.bdate = bdate;
-	}
+    @Column(name = "user_role")
+    private String role;
+    @Embedded
+    private Address address;
 
-	public String getConfirmationToken() {
-		return confirmationToken;
-	}
+    public List<Order> getOrders() {
+        return orders;
+    }
 
-	public void setConfirmationToken(String confirmationToken) {
-		this.confirmationToken = confirmationToken;
-	}
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Boolean getEnabled() {
+        return enabled;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getRole() {
+        return role;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setRole(String role) {
+        this.role = role;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public Address getAddress() {
+        return address;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public Date getBdate() {
+        return bdate;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public void setBdate(Date bdate) {
+        this.bdate = bdate;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getConfirmationToken() {
+        return confirmationToken;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setConfirmationToken(String confirmationToken) {
+        this.confirmationToken = confirmationToken;
+    }
 
-	public boolean getEnabled() {
-		return enabled;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setEnabled(boolean value) {
-		this.enabled = value;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
 }

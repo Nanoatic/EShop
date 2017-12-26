@@ -1,6 +1,5 @@
 package nano.project.eshop.services;
 
-import nano.project.eshop.controllers.ProductDetailsController;
 import nano.project.eshop.models.Product;
 import nano.project.eshop.repositories.SolrProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +16,17 @@ public class SolrProductService {
         this.solrProductRepository = solrProductRepository;
     }
 
-    public Page<Product> searchByName(String name ,Pageable pageable){
-        return  solrProductRepository.findByName(name,pageable);
+    public Page<Product> searchByName(String name, Pageable pageable) {
+        return solrProductRepository.findByNameContainingIgnoreCaseOrDetailsContainingIgnoreCase(name,name, pageable);
+
     }
 
-    public  Product saveProduct(Product product){
-        return  solrProductRepository.save(product);
+    public Product saveProduct(Product product) {
+        return solrProductRepository.save(product);
     }
-    public void deleteProduct(Product product){
-          solrProductRepository.delete(product);
+
+    public void deleteProduct(Product product) {
+        solrProductRepository.delete(product);
     }
 
 }

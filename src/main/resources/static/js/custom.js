@@ -244,11 +244,11 @@ simpleCart.currency({
 });
 simpleCart({
     checkout: {
-        type: "PayPal" ,
-        email: "nanoaticorgix@hotmail.com"
+        type: "SendForm" ,
+        url: "/basket",
+        method : "POST"
     } ,
     currency: 	"TND",
-
     cartStyle : "table",
     cartColumns: [
 
@@ -262,8 +262,14 @@ simpleCart({
 
             }},
 
-
+        {view : function (item,col) {
+                return "<input type=\"hidden\" name='ids[]' value='"+item.get("product")+"' />"
+            } , attr : "product"},
         /* Quantity */
+        {view : function (item,col) {
+                return "<input type=\"hidden\" name='qts[]' value='"+item.quantity()+"' />"
+
+            } ,label : false},
          {attr:'quantity', label: "Quantity" } ,
         { view: "decrement" , label: false , text: "<i class=\"fa fa-minus\"></i>" } ,
         { view: "increment" , label: false , text: "<i class=\"fa fa-plus\"></i>" } ,
@@ -278,3 +284,42 @@ simpleCart({
     ]
 
 });
+
+function updateShipping(x) {
+    simpleCart.shipping(function () {
+        return x;
+    })
+    simpleCart.save();
+    simpleCart.update();
+}
+$(document).ready(function () {
+    var rad = $("[name='delivery']");
+    var prev = null;
+    for(var i = 0; i < rad.length; i++) {
+        var x =function() {
+            (prev)? console.log(prev.value):null;
+            if(this !== prev) {
+                prev = this;
+            }
+            switch(this.value) {
+                case "Cockroach delivery service":{
+                    updateShipping(5)
+                    break;
+                }
+                case "DoggyDoggo postcat":{
+
+                    updateShipping(15)
+                    break;
+
+                }
+                case "Railrats company":{
+
+                    updateShipping(30)
+                    break;
+                }
+
+            }
+        };
+        rad[i].onclick = x;
+    }
+})

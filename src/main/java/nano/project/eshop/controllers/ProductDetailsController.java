@@ -21,25 +21,25 @@ public class ProductDetailsController {
         this.productService = productService;
     }
 
-    @RequestMapping(value = "/product-details",method = RequestMethod.GET)
-    public ModelAndView showBasket(ModelAndView modelAndView , @RequestParam Map requestParams){
-        if(requestParams.get("id")==null){
+    @RequestMapping(value = "/product-details", method = RequestMethod.GET)
+    public ModelAndView showBasket(ModelAndView modelAndView, @RequestParam Map requestParams) {
+        if (requestParams.get("id") == null) {
             modelAndView.setViewName("redirect:/home");
             return modelAndView;
         }
-        Long id ;
+        Long id;
         try {
             id = Long.parseLong((String) requestParams.get("id"));
-        }catch (Exception e ){
+        } catch (Exception e) {
             modelAndView.setViewName("redirect:/home");
             return modelAndView;
         }
-        Product product =  productService.findById(id);
-        if(product==null){
+        Product product = productService.findById(id);
+        if (product == null) {
             modelAndView.setViewName("redirect:/home");
             return modelAndView;
         }
-        modelAndView.addObject("product",product);
+        modelAndView.addObject("product", product);
         modelAndView.setViewName("product-details");
         return modelAndView;
 

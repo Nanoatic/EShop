@@ -13,6 +13,28 @@ public class Order {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date order_date;
+    private String status;
+    private String payement;
+    private String method;
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="user_fk")
+    private User owner ;
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    /// liiink to order lines
+    @OneToMany(mappedBy = "order")
+    private List<OrderLine> orderLines;
+
+    @Embedded
+    private Address address;
 
     public String getPayement() {
         return payement;
@@ -29,16 +51,6 @@ public class Order {
     public void setMethod(String method) {
         this.method = method;
     }
-
-    private String status;
-    private String payement;
-    private String method;
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "order_fk")
-    private List<OrderLine> orderLines;
-
-    @Embedded
-    private Address address;
 
     public String getStatus() {
         return status;
