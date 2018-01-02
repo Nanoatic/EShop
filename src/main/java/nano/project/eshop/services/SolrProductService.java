@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("solrProductService")
 public class SolrProductService {
     private SolrProductRepository solrProductRepository;
@@ -29,4 +31,16 @@ public class SolrProductService {
         solrProductRepository.delete(product);
     }
 
+    public Product findById(Long id){
+        return  solrProductRepository.findById(id);
+    }
+    public List<Product> findAllByIds(List<Long> ids){
+        return  solrProductRepository.findAllByIdIn(ids);
+    }
+    public  void deleteProducts(List<Product> products){
+        solrProductRepository.delete(products);
+    }
+    public List<Product> findAllProducts(){
+        return (List<Product>) solrProductRepository.findAll();
+    }
 }

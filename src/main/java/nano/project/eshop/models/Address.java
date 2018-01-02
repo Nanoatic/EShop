@@ -11,6 +11,16 @@ public class Address {
     private String city;
     private String country;
 
+    @Override
+    public String toString() {
+        return "Address{" +
+                "street='" + street + '\'' +
+                ", zip_code=" + zip_code +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                '}';
+    }
+
     public String getStreet() {
         return street;
     }

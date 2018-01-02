@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head th:include="adminfragments/admincommon ::css">
+
+    <title> Admin </title>
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <div th:include="adminfragments/adminnav :: nav"></div>
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">New Products</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Add New Products
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <form role="form" th:action="@{/forms}" th:object="${products}" method="post" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <label>Products Name</label>
+                                            <input class="form-control" name="name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Price</label>
+                                            <input type="text" class="form-control" name="price">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Quantity</label>
+                                            <input type="number" class="form-control" name="quantity">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Category</label>
+                                            <select name="category" class="form-control">
+                                                <option value="desktop">Desktop</option>
+                                                <option value="laptop">Laptop</option>
+                                                <option value="motherboard">Motherboard</option>
+                                                <option value="graphic card">Graphic Card</option>
+                                                <option value="storage unit">Storage unit</option>
+                                                <option value="case">Case</option>
+                                                <option value="mouse">Mouses</option>
+                                                <option value="keyboard">Keyboard</option>
+                                                <option value="headphone">Headphone</option>
+                                                <option value="console">Console</option>
+                                                <option value="video game">Video Game</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Product Pictur</label>
+                                            <input  type="file" name="file">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Details</label>
+                                            <textarea name="details" class="form-control" rows="3"></textarea>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-success">Add Product</button>
+                                        <button type="reset" class="btn btn-default">Reset</button>
+                                    </form>
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <div  th:include="adminfragments/admincommon ::scripts"></div>
+
+</body>
+
+</html>
