@@ -27,10 +27,11 @@ public class EshopApplicationTests {
 	public void contextLoads() {
 		for (int i = 0; i < 20 ; i++) {
 			Product product = new Product();
-			product.setCategory(Category.HEADPHONE);
-			product.setDetails("blalalalallalasadsadvvxzcxz");
+			product.setCategory(Category.CONSOLE);
+			product.setDetails("You vexed shy mirth now noise. Talked him people valley add use her depend letter. Allowance too applauded now way something recommend. Mrs age men and trees jokes fancy. Gay pretended engrossed eagerness continued ten. Admitting day him contained unfeeling attention mrs out. \n");
 			product.setName(Helpers.gencode9());
 			product.setPhoto("/img/xbox.jpg");
+			product.setPrice(399.0f);
 			product.setQuantity(15);
 			solrProductService.saveProduct(product);
 

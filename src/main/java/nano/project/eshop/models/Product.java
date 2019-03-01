@@ -1,6 +1,7 @@
 package nano.project.eshop.models;
 
 import org.apache.solr.client.solrj.beans.Field;
+import org.hibernate.annotations.Type;
 import org.springframework.data.solr.core.mapping.Indexed;
 import org.springframework.data.solr.core.mapping.SolrDocument;
 
@@ -33,6 +34,7 @@ public class Product {
     private String name;
     @Indexed
     @Field
+    @Type(type="text")
     private String details;
     @Field
     @Column(name = "photo")

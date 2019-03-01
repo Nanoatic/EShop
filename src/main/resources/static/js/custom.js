@@ -213,14 +213,14 @@ $(document).ready(function() {
 function initialize() {
     var mapOptions = {
         zoom: 15,
-        center: new google.maps.LatLng(35.886767, 10.534198),
+        center: new google.maps.LatLng(39.70650,  -2.96479),
         mapTypeId: google.maps.MapTypeId.ROAD,
         scrollwheel: false
     };
     var map = new google.maps.Map(document.getElementById('map'),
         mapOptions);
 
-    var myLatLng = new google.maps.LatLng(35.886767, 10.534198);
+    var myLatLng = new google.maps.LatLng(39.70650,  -2.96479);
     var marker = new google.maps.Marker({
         position: myLatLng,
         map: map
